@@ -322,12 +322,12 @@ public class ObsResource1_8 extends DataDelegatingCrudResource<Obs> {
 						}
 					}
 				} else if (obs.getConcept().getDatatype().isBoolean()) {
-					if (value.equals(Context.getConceptService().getTrueConcept())) {
+					if (value.toString().equals(Context.getConceptService().getTrueConcept().getUuid())) {
 						value = true;
-					} else if (value.equals(Context.getConceptService().getFalseConcept())) {
+					} else if (value.toString().equals(Context.getConceptService().getFalseConcept().getUuid())) {
 						value = false;
 					} else if (!value.getClass().isAssignableFrom(Boolean.class)) {
-						throw new APIException("Unexpected value: " + value + " set as the value of boolean. Boolean, ConceptService.getTrueConcept or , ConceptService.getFalseConcept expected");
+						throw new ConversionException("Unexpected value: " + value + " set as the value of boolean. Boolean, ConceptService.getTrueConcept or , ConceptService.getFalseConcept expected");
 					}
 				}
 				obs.setValueAsString(value.toString());
